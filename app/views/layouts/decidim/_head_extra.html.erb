@@ -1,0 +1,80 @@
+<style type="text/css">
+
+/* Onglet principaux */
+.navbar {
+    background: #ffffff;
+    border: 1px solid #ccc;
+}
+.main-nav__link a {
+    color: #21a2d380;
+}
+.main-nav__link--active a {
+    color: #21a2d3;
+}
+.main-nav__link a:hover {
+    color: #21a2d3;
+    text-decoration: underline;
+}
+
+.title-bar {
+    background: #ffffff;
+    color: #000;
+}
+.logo-wrapper span {
+    color: #0057aa;
+}
+
+/* Liens en entete */
+.topbar__dropmenu > ul > li > a {
+    color: #21a2d3;
+}
+.topbar__dropmenu > ul > li > a::after {
+    border-top-color: #21a2d3 !important;
+}
+.topbar__admin__link a {
+    color: #21a2d3;
+}
+.topbar__admin__link a:hover {
+    color: #21a2d3;
+}
+.topbar__user__login a {
+    color: #21a2d3;
+}
+.topbar__notifications .icon, .topbar__conversations .icon {
+    fill: #000;
+    opacity: .4;
+}
+
+
+@media print, screen and (min-width: 40em) {
+
+/* Champs Recherche en entete */
+.topbar__search input {
+    background: #f9f9f9;
+}
+.topbar__search:not(:focus-within) button {
+    background: #f9f9f9;
+    color: rgb(0 0 0 / 50%);
+}
+
+.topbar__search input::placeholder {
+  color: #ccc;
+}
+
+
+}
+
+</style>
+
+<script type="text/javascript">
+  var _paq = window._paq = window._paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://decidimtest.ville-antibes.fr/matomo/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
