@@ -5,10 +5,8 @@ Decidim.configure do |config|
   config.mailer_sender = "noreply@ville-antibes.fr"
 
   # Change these lines to set your preferred locales
-  config.default_locale = :en
+  config.default_locale = :fr
   config.available_locales = [:en, :ca, :es, :fr]
-  #config.default_locale = :fr
-  #config.available_locales = [:fr]
 
   config.maximum_attachment_size = 150.megabytes
 
