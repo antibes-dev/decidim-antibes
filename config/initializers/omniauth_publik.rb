@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Devise.setup do |config|
   config.omniauth :publik,
                   client_id: ENV["PUBLIK_CLIENT_ID"],

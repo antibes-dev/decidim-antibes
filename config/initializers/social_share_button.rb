@@ -5,5 +5,5 @@
 #
 SocialShareButton.configure do |config|
   config.allow_sites = %w(twitter facebook whatsapp_app whatsapp_web telegram)
-  #config.allow_sites = %w()
+  # config.allow_sites = %w()
 end
