@@ -6,9 +6,9 @@ module Decidim
   describe RegistrationForm do
     subject do
       described_class.from_params(
-        attributes
+          attributes
       ).with_context(
-        context
+          context
       )
     end
 
@@ -19,21 +19,27 @@ module Decidim
     let(:password) { "S4CGQ9AM4ttJdPKS" }
     let(:password_confirmation) { password }
     let(:tos_agreement) { "1" }
+    let(:registration_metadata) do
+      {
+          "foo": "bar"
+      }
+    end
 
     let(:attributes) do
       {
-        name: name,
-        nickname: nickname,
-        email: email,
-        password: password,
-        password_confirmation: password_confirmation,
-        tos_agreement: tos_agreement
+          name: name,
+          nickname: nickname,
+          email: email,
+          password: password,
+          password_confirmation: password_confirmation,
+          tos_agreement: tos_agreement,
+          registration_metadata: registration_metadata
       }
     end
 
     let(:context) do
       {
-        current_organization: organization
+          current_organization: organization
       }
     end
 
@@ -123,6 +129,12 @@ module Decidim
       let(:tos_agreement) { "0" }
 
       it { is_expected.to be_invalid }
+    end
+
+    context "when registration_metadata is empty" do
+      let(:registration_metadata) { {} }
+
+      it { is_expected.to be_valid }
     end
   end
 end

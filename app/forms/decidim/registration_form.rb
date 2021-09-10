@@ -3,6 +3,7 @@
 module Decidim
   # A form object used to handle user registrations
   class RegistrationForm < Form
+    include JsonbAttributes
     mimic :user
 
     attribute :name, String
@@ -13,6 +14,7 @@ module Decidim
     attribute :newsletter, Boolean
     attribute :tos_agreement, Boolean
     attribute :current_locale, String
+    jsonb_attribute :registration_metadata, []
 
     validates :name, presence: true
     validates :nickname, presence: true, format: /\A[\w\-]+\z/, length: { maximum: Decidim::User.nickname_max_length }

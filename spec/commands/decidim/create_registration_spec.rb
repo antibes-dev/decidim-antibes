@@ -15,26 +15,32 @@ module Decidim
       let(:tos_agreement) { "1" }
       let(:newsletter) { "1" }
       let(:current_locale) { "es" }
+      let(:registration_metadata) do
+        {
+            "foo": "bar"
+        }
+      end
 
       let(:form_params) do
         {
-          "user" => {
-            "name" => name,
-            "nickname" => nickname,
-            "email" => email,
-            "password" => password,
-            "password_confirmation" => password_confirmation,
-            "tos_agreement" => tos_agreement,
-            "newsletter_at" => newsletter
-          }
+            "user" => {
+                "name" => name,
+                "nickname" => nickname,
+                "email" => email,
+                "password" => password,
+                "password_confirmation" => password_confirmation,
+                "tos_agreement" => tos_agreement,
+                "newsletter_at" => newsletter,
+                "registration_metadata" => registration_metadata
+            }
         }
       end
       let(:form) do
         RegistrationForm.from_params(
-          form_params,
-          current_locale: current_locale
+            form_params,
+            current_locale: current_locale
         ).with_context(
-          current_organization: organization
+            current_organization: organization
         )
       end
       let(:command) { described_class.new(form) }
@@ -67,8 +73,8 @@ module Decidim
               command.call
               user.reload
             end.to change(User, :count).by(0)
-                                       .and broadcast(:invalid)
-              .and change(user.reload, :invitation_token)
+                       .and broadcast(:invalid)
+                                .and change(user.reload, :invitation_token)
             expect(ActionMailer::DeliveryJob).to have_been_enqueued.on_queue("mailers")
           end
         end
@@ -81,17 +87,18 @@ module Decidim
 
         it "creates a new user" do
           expect(User).to receive(:create!).with(
-            name: form.name,
-            nickname: form.nickname,
-            email: form.email,
-            password: form.password,
-            password_confirmation: form.password_confirmation,
-            tos_agreement: form.tos_agreement,
-            newsletter_notifications_at: form.newsletter_at,
-            email_on_notification: true,
-            organization: organization,
-            accepted_tos_version: organization.tos_version,
-            locale: form.current_locale
+              name: form.name,
+              nickname: form.nickname,
+              email: form.email,
+              password: form.password,
+              password_confirmation: form.password_confirmation,
+              tos_agreement: form.tos_agreement,
+              newsletter_notifications_at: form.newsletter_at,
+              email_on_notification: true,
+              organization: organization,
+              accepted_tos_version: organization.tos_version,
+              locale: form.current_locale,
+              registration_metadata: form.registration_metadata
           ).and_call_original
 
           expect { command.call }.to change(User, :count).by(1)
