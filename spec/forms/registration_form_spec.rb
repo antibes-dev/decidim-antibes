@@ -6,9 +6,9 @@ module Decidim
   describe RegistrationForm do
     subject do
       described_class.from_params(
-          attributes
+        attributes
       ).with_context(
-          context
+        context
       )
     end
 
@@ -19,27 +19,30 @@ module Decidim
     let(:password) { "S4CGQ9AM4ttJdPKS" }
     let(:password_confirmation) { password }
     let(:tos_agreement) { "1" }
+    let(:sworn_statement) { "1" }
+    let(:cq_interested) { "1" }
     let(:registration_metadata) do
       {
-          "foo": "bar"
+        sworn_statement: sworn_statement,
+        cq_interested: cq_interested
       }
     end
 
     let(:attributes) do
       {
-          name: name,
-          nickname: nickname,
-          email: email,
-          password: password,
-          password_confirmation: password_confirmation,
-          tos_agreement: tos_agreement,
-          registration_metadata: registration_metadata
+        name: name,
+        nickname: nickname,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation,
+        tos_agreement: tos_agreement,
+        registration_metadata: registration_metadata
       }
     end
 
     let(:context) do
       {
-          current_organization: organization
+        current_organization: organization
       }
     end
 
@@ -134,7 +137,19 @@ module Decidim
     context "when registration_metadata is empty" do
       let(:registration_metadata) { {} }
 
-      it { is_expected.to be_valid }
+      it { is_expected.to be_invalid }
+    end
+
+    context "when sworn_statement is not checked" do
+      let(:sworn_statement) { "0" }
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "when sworn_statement is not checked" do
+      let(:cq_interested) { "0" }
+
+      it { is_expected.to be_invalid }
     end
   end
 end

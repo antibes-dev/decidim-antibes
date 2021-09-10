@@ -14,7 +14,10 @@ module Decidim
     attribute :newsletter, Boolean
     attribute :tos_agreement, Boolean
     attribute :current_locale, String
-    jsonb_attribute :registration_metadata, []
+    jsonb_attribute :registration_metadata, [
+      [:sworn_statement, Boolean],
+      [:cq_interested, Boolean]
+    ]
 
     validates :name, presence: true
     validates :nickname, presence: true, format: /\A[\w\-]+\z/, length: { maximum: Decidim::User.nickname_max_length }
@@ -23,6 +26,8 @@ module Decidim
     validates :password, password: { name: :name, email: :email, username: :nickname }
     validates :password_confirmation, presence: true
     validates :tos_agreement, allow_nil: false, acceptance: true
+    validates :sworn_statement, allow_nil: false, acceptance: true
+    validates :cq_interested, allow_nil: false, acceptance: true
 
     validate :email_unique_in_organization
     validate :nickname_unique_in_organization

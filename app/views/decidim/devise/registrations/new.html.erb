@@ -56,6 +56,24 @@
             </div>
           </div>
 
+          <div class="card" id="card__sworn_statement">
+            <div class="card__content">
+              <h3><%= t(".sworn_statement_title") %></h3>
+              <div class="field">
+                <%= f.check_box :sworn_statement, label: t(".sworn_statement_label") %>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="card__cq_interested">
+            <div class="card__content">
+              <h3><%= t(".cq_interested_title") %></h3>
+              <div class="field">
+                <%= f.check_box :cq_interested, label: t(".cq_interested_label") %>
+              </div>
+            </div>
+          </div>
+
           <div class="card" id="card__tos">
             <div class="card__content">
               <h3><%= t(".tos_title") %></h3>
