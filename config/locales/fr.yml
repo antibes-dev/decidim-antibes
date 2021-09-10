@@ -1,2 +1,45 @@
 ---
 fr:
+  decidim:
+    admin:
+      actions:
+        add: Ajouter
+        confirm_destroy: Êtes-vous certain ?
+        destroy: Détruire
+        edit: Modifier
+      models:
+        scope_type:
+          fields:
+            name: Titre
+            plural: Pluriel
+      titles:
+        scope_types: Types de secteur
+    devise:
+      registrations:
+        new:
+          already_have_an_account?: Vous avez déjà un compte ?
+          newsletter: Recevoir une newsletter sur l'actualité de la plateforme
+          newsletter_title: Autorisation de contact
+          nickname_help: Cet identifiant est public et unique sur %{organization}
+            ; il permet aux autres utilisateurs de vous suivre, de vous contacter
+            ou de vous mentionner dans leurs commentaires. Il s’affichera précédé
+            d’un « @ » ; il ne doit pas contenir d’espace ni de caractère spécial.
+          password_help: "%{minimun_characters} caractères minimum, ne doit pas être
+            trop commun (par exemple 123456) et doit être différent de votre pseudo
+            et de votre email."
+          sign_in: Se connecter
+          sign_up: S'inscrire
+          subtitle: Inscrivez-vous pour participer aux discussions et pour exprimer
+            votre soutien aux propositions de votre choix.
+          terms: les termes et conditions d'utilisation
+          tos_agreement: En vous inscrivant, vous acceptez %{link}.
+          tos_title: Conditions d'utilisation
+          username_help: Le nom est public et apparaît dans votre profil et sur vos
+            messages. Dans le but de garantir l'anonymat, vous pouvez choisir n'importe
+            quel nom.
+  devise:
+  failure:
+    invited: Vous avez une invitation en attente, acceptez-la pour terminer la création de votre compte.
+  registrations:
+    new:
+      sign_up: S'inscrire
