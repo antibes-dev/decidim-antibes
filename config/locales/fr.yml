@@ -38,8 +38,9 @@ fr:
             messages. Dans le but de garantir l'anonymat, vous pouvez choisir n'importe
             quel nom.
   devise:
-  failure:
-    invited: Vous avez une invitation en attente, acceptez-la pour terminer la création de votre compte.
-  registrations:
-    new:
-      sign_up: S'inscrire
+    failure:
+      invited: Vous avez une invitation en attente, acceptez-la pour terminer la création
+        de votre compte.
+    registrations:
+      new:
+        sign_up: S'inscrire
