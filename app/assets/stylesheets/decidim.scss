@@ -47,3 +47,19 @@
 // }
 
 @import "decidim/application";
+
+.new-user-autocomplete {
+  box-shadow: 0 0 5px #e8e8e8;
+  transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+  border-radius: 4px;
+  border: 1px solid darken(#e8e8e8, 20%);
+
+  li {
+    background-color: #e8e8e8;
+    list-style: none;
+    padding: .8rem .4rem;
+    border-bottom: 1px solid darken(#e8e8e8, 20%);
+    cursor: pointer;
+    font-weight: 600;
+  }
+}
