@@ -24,7 +24,7 @@
     <div class="row">
       <div class="columns large-6 medium-10 medium-centered">
 
-        <%= decidim_form_for(@form, namespace: "registration", as: resource_name, url: registration_path(resource_name), html: { class: "register-form new_user", id: "register-form" }) do |f| %>
+        <%= decidim_form_for(@form, namespace: "registration", as: resource_name, url: registration_path(resource_name), html: {class: "register-form new_user", id: "register-form"}) do |f| %>
           <%= invisible_captcha %>
           <div class="card">
             <div class="card__content">
@@ -38,7 +38,7 @@
 
               <div class="user-nickname">
                 <div class="field">
-                  <%= f.text_field :nickname, help_text: t(".nickname_help", organization: current_organization.name), prefix: { value: "@", small: 1, large: 1 } %>
+                  <%= f.text_field :nickname, help_text: t(".nickname_help", organization: current_organization.name), prefix: {value: "@", small: 1, large: 1} %>
                 </div>
               </div>
 
@@ -70,6 +70,17 @@
               <h3><%= t(".cq_interested_title") %></h3>
               <div class="field">
                 <%= f.check_box :cq_interested, label: t(".cq_interested_label") %>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="card__situation">
+            <div class="card__content">
+              <h3><%= t(".situation_title") %></h3>
+              <div class="field">
+                <% Decidim::RegistrationForm::USER_SITUATIONS.each do |situation| %>
+                  <div><%= f.radio_button :situation, situation, label: t(".situations.#{situation}") %></div>
+                <% end %>
               </div>
             </div>
           </div>

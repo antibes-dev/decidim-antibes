@@ -21,10 +21,12 @@ module Decidim
     let(:tos_agreement) { "1" }
     let(:sworn_statement) { "1" }
     let(:cq_interested) { "1" }
+    let(:situation) { "living" }
     let(:registration_metadata) do
       {
         sworn_statement: sworn_statement,
-        cq_interested: cq_interested
+        cq_interested: cq_interested,
+        situation: situation
       }
     end
 
@@ -150,6 +152,30 @@ module Decidim
       let(:cq_interested) { "0" }
 
       it { is_expected.to be_invalid }
+    end
+
+    context "when situation is empty" do
+      let(:situation) { nil }
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "when situation is not in the list" do
+      let(:situation) { "On the moon" }
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "when situation is working" do
+      let(:situation) { "working" }
+
+      it { is_expected.to be_valid }
+    end
+
+    context "when situation is other" do
+      let(:situation) { "other" }
+
+      it { is_expected.to be_valid }
     end
   end
 end

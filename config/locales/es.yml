@@ -28,6 +28,11 @@ es:
             email."
           sign_in: Log in
           sign_up: Sign up
+          situation_title: Your situation
+          situations:
+            living: I'm living in Antibes
+            other: Other
+            working: I'm working in Antibes
           subtitle: Sign up to participate in discussions and support proposals.
           sworn_statement_label: Sworn statement label
           sworn_statement_title: Sworn statement title
