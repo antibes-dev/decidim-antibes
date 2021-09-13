@@ -6,9 +6,9 @@ module Decidim
   describe RegistrationForm do
     subject do
       described_class.from_params(
-        attributes
+          attributes
       ).with_context(
-        context
+          context
       )
     end
 
@@ -22,29 +22,31 @@ module Decidim
     let(:sworn_statement) { "1" }
     let(:cq_interested) { "1" }
     let(:situation) { "living" }
+    let(:address) { "282 Kevin Brook, Imogeneborough, CA 58517" }
     let(:registration_metadata) do
       {
-        sworn_statement: sworn_statement,
-        cq_interested: cq_interested,
-        situation: situation
+          sworn_statement: sworn_statement,
+          cq_interested: cq_interested,
+          situation: situation,
+          address: address
       }
     end
 
     let(:attributes) do
       {
-        name: name,
-        nickname: nickname,
-        email: email,
-        password: password,
-        password_confirmation: password_confirmation,
-        tos_agreement: tos_agreement,
-        registration_metadata: registration_metadata
+          name: name,
+          nickname: nickname,
+          email: email,
+          password: password,
+          password_confirmation: password_confirmation,
+          tos_agreement: tos_agreement,
+          registration_metadata: registration_metadata
       }
     end
 
     let(:context) do
       {
-        current_organization: organization
+          current_organization: organization
       }
     end
 
@@ -170,12 +172,30 @@ module Decidim
       let(:situation) { "working" }
 
       it { is_expected.to be_valid }
+
+      context "when address is empty" do
+        let(:address) { nil }
+
+        it { is_expected.to be_valid }
+      end
     end
 
     context "when situation is other" do
       let(:situation) { "other" }
 
       it { is_expected.to be_valid }
+
+      context "when address is empty" do
+        let(:address) { nil }
+
+        it { is_expected.to be_valid }
+      end
+    end
+
+    context "when address is empty" do
+      let(:address) { nil }
+
+      it { is_expected.to be_invalid }
     end
   end
 end
