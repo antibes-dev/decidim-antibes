@@ -47,8 +47,14 @@ module Decidim
         email_on_notification: true,
         accepted_tos_version: form.current_organization.tos_version,
         locale: form.current_locale,
-        registration_metadata: form.registration_metadata
+        registration_metadata: registration_metadata
       )
+    end
+
+    def registration_metadata
+      hash = form.registration_metadata.dup
+      hash.merge!(address: nil) if hash[:situation] != "living"
+      hash
     end
   end
 end

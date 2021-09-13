@@ -11,7 +11,9 @@ describe "Authentication", type: :system do
     visit decidim.root_path
   end
 
-  def fill_user_fields(user: "user@example.org", robot: false)
+  def fill_user_fields(user: "user@example.org", robot: false, situation: "I'm living in Antibes")
+    use_address = situation == "I'm living in Antibes"
+
     page.execute_script("$($('.new_user > div > input')[0]).val('Ima robot :D')") if robot
     fill_in :registration_user_email, with: user
     fill_in :registration_user_name, with: "Responsible Citizen"
@@ -22,7 +24,8 @@ describe "Authentication", type: :system do
     check :registration_user_newsletter
     check :registration_user_sworn_statement
     check :registration_user_cq_interested
-    choose "I'm living in Antibes"
+    choose situation
+    fill_in :registration_user_address, with: "282 Kevin Brook, Imogeneborough, CA 58517" if use_address
   end
 
   describe "Sign Up" do
@@ -36,6 +39,20 @@ describe "Authentication", type: :system do
         end
 
         expect(page).to have_content("You have signed up successfully")
+      end
+
+      context "when situation is other" do
+        it "creates a new User" do
+          find(".sign-up-link").click
+
+          within ".new_user" do
+            fill_user_fields(situation: "Other")
+            expect(page).not_to have_content("Address")
+            find("*[type=submit]").click
+          end
+
+          expect(page).to have_content("You have signed up successfully")
+        end
       end
     end
 

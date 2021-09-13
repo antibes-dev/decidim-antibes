@@ -17,22 +17,22 @@ module Decidim
     attribute :tos_agreement, Boolean
     attribute :current_locale, String
     jsonb_attribute :registration_metadata, [
-        [:sworn_statement, Boolean],
-        [:cq_interested, Boolean],
-        [:situation, String],
-        [:address, String]
+      [:sworn_statement, Boolean],
+      [:cq_interested, Boolean],
+      [:situation, String],
+      [:address, String]
     ]
 
     validates :name, presence: true
-    validates :nickname, presence: true, format: /\A[\w\-]+\z/, length: {maximum: Decidim::User.nickname_max_length}
-    validates :email, presence: true, 'valid_email_2/email': {disposable: true}
+    validates :nickname, presence: true, format: /\A[\w\-]+\z/, length: { maximum: Decidim::User.nickname_max_length }
+    validates :email, presence: true, 'valid_email_2/email': { disposable: true }
     validates :password, confirmation: true
-    validates :password, password: {name: :name, email: :email, username: :nickname}
+    validates :password, password: { name: :name, email: :email, username: :nickname }
     validates :password_confirmation, presence: true
     validates :tos_agreement, allow_nil: false, acceptance: true
     validates :sworn_statement, allow_nil: false, acceptance: true
     validates :cq_interested, allow_nil: false, acceptance: true
-    validates :situation, inclusion: {in: USER_SITUATIONS}
+    validates :situation, inclusion: { in: USER_SITUATIONS }
     validates :address, presence: true, if: ->(form) { form.situation == "living" }
 
     validate :email_unique_in_organization

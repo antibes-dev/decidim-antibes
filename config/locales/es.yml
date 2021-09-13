@@ -17,6 +17,8 @@ es:
     devise:
       registrations:
         new:
+          address_help: Address help
+          address_label: Address label
           already_have_an_account?: Already have an account?
           cq_interested_label: Cq interested label
           cq_interested_title: Cq interested title

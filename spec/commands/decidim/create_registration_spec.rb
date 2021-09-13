@@ -15,11 +15,13 @@ module Decidim
       let(:tos_agreement) { "1" }
       let(:newsletter) { "1" }
       let(:current_locale) { "es" }
+      let(:situation) { "living" }
       let(:registration_metadata) do
         {
           sworn_statement: "1",
           cq_interested: "1",
-          situation: "living"
+          situation: situation,
+          address: "282 Kevin Brook, Imogeneborough, CA 58517"
         }
       end
 
@@ -113,6 +115,28 @@ module Decidim
             expect do
               command.call
               expect(User.last.newsletter_notifications_at).to eq(nil)
+            end.to change(User, :count).by(1)
+          end
+        end
+
+        context "when registration metadata contains living situation" do
+          let(:situation) { "living" }
+
+          it "sets address to nil" do
+            expect do
+              command.call
+              expect(User.last.registration_metadata["address"]).not_to eq(nil)
+            end.to change(User, :count).by(1)
+          end
+        end
+
+        context "when registration metadata does not contains living situation" do
+          let(:situation) { "other" }
+
+          it "sets address to nil" do
+            expect do
+              command.call
+              expect(User.last.registration_metadata["address"]).to eq(nil)
             end.to change(User, :count).by(1)
           end
         end
