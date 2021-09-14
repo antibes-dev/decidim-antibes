@@ -55,7 +55,10 @@ $(document).ready(() => {
                 if (address.val().length >= 5) {
                     url.searchParams.delete("q");
                     url.searchParams.delete("limit");
+                    url.searchParams.delete("citycode");
+
                     url.searchParams.append("q", e.target.value);
+                    url.searchParams.append("citycode", "06004");
                     url.searchParams.append("limit", 5);
 
                     fetch(url,
