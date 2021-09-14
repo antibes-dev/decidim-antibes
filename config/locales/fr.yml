@@ -18,7 +18,7 @@ fr:
       registrations:
         new:
           address_help: 'L''autocomplétion est basée sur la base d''adresse locale
-            de la ville d''Antibes, Format accepté: [rue], [code postal], [ville]'
+            de la ville d''Antibes, Format accepté: [N°] [Rue] [Code postal] [Ville]'
           address_label: Mon adresse
           already_have_an_account?: Vous avez déjà un compte ?
           cq_interested_label: Je suis intéressé par les CQ
