@@ -32,44 +32,35 @@ $(document).ready(() => {
             })
         });
 
-        const build_suggestions = (addresses) => {
-            if (addresses.length > 0) {
-                address.autocomplete({
-                    source: addresses,
-                    delay: 0,
-                    minLength: 0,
-                    classes: {
-                        "ui-autocomplete": "new-user-autocomplete"
-                    }
-                });
-            }
-        };
-
         const filter_api_result = (result) => {
             return result.features.map((i) => {
                 return i.properties.label
             })
         };
 
-        address.on("keyup", (e) => {
-                if (address.val().length >= 5) {
-                    url.searchParams.delete("q");
-                    url.searchParams.delete("limit");
-                    url.searchParams.delete("citycode");
+        address.autocomplete({
+            source: (request, response) => {
+                url.searchParams.delete("q");
+                url.searchParams.delete("limit");
+                url.searchParams.delete("citycode");
 
-                    url.searchParams.append("q", e.target.value);
-                    url.searchParams.append("citycode", "06004");
-                    url.searchParams.append("limit", 5);
+                url.searchParams.append("q", request.term);
+                url.searchParams.append("citycode", "06004");
+                url.searchParams.append("limit", 5);
 
-                    fetch(url,
-                        {method: 'GET', redirect: 'follow'}
-                    )
-                        .then(response => response.text())
-                        .then(result => build_suggestions(filter_api_result(JSON.parse(result))))
-                        .catch(error => console.log('error', error));
-                }
+                fetch(url,
+                    {method: 'GET', redirect: 'follow'}
+                )
+                    .then(apiResponse => apiResponse.text())
+                    .then(result => response(filter_api_result(JSON.parse(result))))
+                    .catch(error => console.log('error', error));
+            },
+            delay: 0,
+            minLength: 0,
+            classes: {
+                "ui-autocomplete": "new-user-autocomplete"
             }
-        );
+        });
 
         address.on("focus", () => {
             $(".new-user-autocomplete").show();
