@@ -17,11 +17,12 @@ fr:
     devise:
       registrations:
         new:
-          address_help: Address help
-          address_label: Address label
+          address_help: 'L''autocomplétion est basée sur la base d''adresse locale
+            de la ville d''Antibes, Format accepté: [rue], [code postal], [ville]'
+          address_label: Mon adresse
           already_have_an_account?: Vous avez déjà un compte ?
-          cq_interested_label: Cq interested label
-          cq_interested_title: Cq interested title
+          cq_interested_label: Je suis intéressé par les CQ
+          cq_interested_title: Interêt pour les CQ
           newsletter: Recevoir une newsletter sur l'actualité de la plateforme
           newsletter_title: Autorisation de contact
           nickname_help: Cet identifiant est public et unique sur %{organization}
@@ -40,8 +41,8 @@ fr:
             working: Je travaille à Antibes
           subtitle: Inscrivez-vous pour participer aux discussions et pour exprimer
             votre soutien aux propositions de votre choix.
-          sworn_statement_label: Sworn statement label
-          sworn_statement_title: Sworn statement title
+          sworn_statement_label: J'atteste sur l'honneur
+          sworn_statement_title: Attestation sur l'honneur
           terms: les termes et conditions d'utilisation
           tos_agreement: En vous inscrivant, vous acceptez %{link}.
           tos_title: Conditions d'utilisation
