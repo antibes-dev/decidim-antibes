@@ -6,8 +6,6 @@ module Decidim
     include JsonbAttributes
     mimic :user
 
-    USER_SITUATIONS = %w(living working other).freeze
-
     attribute :name, String
     attribute :nickname, String
     attribute :email, String
@@ -18,7 +16,6 @@ module Decidim
     attribute :current_locale, String
     jsonb_attribute :registration_metadata, [
       [:cq_interested, Boolean],
-      [:situation, String],
       [:address, String]
     ]
 
@@ -30,8 +27,7 @@ module Decidim
     validates :password_confirmation, presence: true
     validates :tos_agreement, allow_nil: false, acceptance: true
     validates :cq_interested, allow_nil: false, acceptance: true
-    validates :situation, inclusion: { in: USER_SITUATIONS }
-    validates :address, presence: true, if: ->(form) { form.situation == "living" }
+    validates :address, presence: true
 
     validate :email_unique_in_organization
     validate :nickname_unique_in_organization

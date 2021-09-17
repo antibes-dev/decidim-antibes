@@ -58,12 +58,7 @@
 
           <div class="card" id="card__situation">
             <div class="card__content">
-              <% Decidim::RegistrationForm::USER_SITUATIONS.each do |situation| %>
-                <div class="field">
-                  <%= f.radio_button :situation, situation, label: t(".situations.#{situation}") %>
-                </div>
-              <% end %>
-              <div class="field hide">
+              <div class="field">
                 <%= f.text_field :address, help_text: t(".address_help"), label: t(".address_label") %>
               </div>
             </div>

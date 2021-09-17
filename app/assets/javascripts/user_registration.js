@@ -12,26 +12,6 @@ $(document).ready(() => {
             }
         );
 
-        const situations = [
-            $("#registration_user_situation_living"),
-            $("#registration_user_situation_working"),
-            $("#registration_user_situation_other")
-        ];
-
-        const checkAddress = () => {
-            if (situations[0].prop("checked")) {
-                address.parent().parent().removeClass("hide")
-            } else {
-                address.parent().parent().addClass("hide")
-            }
-        };
-
-        situations.forEach((item) => {
-            item.on("change", () => {
-                checkAddress();
-            })
-        });
-
         const filter_api_result = (result) => {
             return result.features.map((i) => {
                 return i.properties.label

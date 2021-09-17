@@ -53,7 +53,7 @@ module Decidim
 
     def registration_metadata
       hash = form.registration_metadata.dup
-      hash.merge!(address: nil) if hash[:situation] != "living"
+      hash.merge!(address: form.address)
       hash
     end
   end
