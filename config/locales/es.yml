@@ -30,11 +30,6 @@ es:
             email."
           sign_in: Log in
           sign_up: Sign up
-          situation_title: Your situation
-          situations:
-            living: I'm living in Antibes
-            other: Other
-            working: I'm working in Antibes
           subtitle: Sign up to participate in discussions and support proposals.
           terms: the terms and conditions of use
           tos_agreement: By signing up you agree to %{link}.

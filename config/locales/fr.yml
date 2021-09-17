@@ -21,7 +21,9 @@ fr:
             de la ville d''Antibes, format accepté: [N°] [Rue] [Code postal] [Ville]'
           address_label: Votre adresse de résidence
           already_have_an_account?: Vous avez déjà un compte ?
-          cq_interested_label: Je souhaite m'inscrire à mon conseil de quartier, pour pouvoir déposer mes propositions d'aménagement, participer à la campagne de priorisation, contribuer aux consultations.
+          cq_interested_label: Je souhaite m'inscrire à mon conseil de quartier, pour
+            pouvoir déposer mes propositions d'aménagement, participer à la campagne
+            de priorisation, contribuer aux consultations.
           cq_interested_title: Conseils de quartier
           newsletter: Recevoir une newsletter sur l'actualité de la plateforme
           newsletter_title: Autorisation de contact
@@ -34,11 +36,6 @@ fr:
             et de votre email."
           sign_in: Se connecter
           sign_up: S'inscrire
-          situation_title: Votre situation
-          situations:
-            living: Je réside à Antibes
-            other: Autre
-            working: Je travaille à Antibes
           subtitle: Inscrivez-vous pour participer aux discussions et pour exprimer
             votre soutien aux propositions de votre choix.
           terms: les termes et conditions d'utilisation
