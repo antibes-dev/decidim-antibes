@@ -18,11 +18,11 @@ fr:
       registrations:
         new:
           address_help: 'L''autocomplétion est basée sur la base d''adresse locale
-            de la ville d''Antibes, Format accepté: [N°] [Rue] [Code postal] [Ville]'
-          address_label: Mon adresse
+            de la ville d''Antibes, format accepté: [N°] [Rue] [Code postal] [Ville]'
+          address_label: Votre adresse de résidence
           already_have_an_account?: Vous avez déjà un compte ?
-          cq_interested_label: Je suis intéressé par les CQ
-          cq_interested_title: Interêt pour les CQ
+          cq_interested_label: Je souhaite m'inscrire à mon conseil de quartier, pour pouvoir déposer mes propositions d'aménagement, participer à la campagne de priorisation, contribuer aux consultations.
+          cq_interested_title: Conseils de quartier
           newsletter: Recevoir une newsletter sur l'actualité de la plateforme
           newsletter_title: Autorisation de contact
           nickname_help: Cet identifiant est public et unique sur %{organization}
