@@ -22,7 +22,6 @@ describe "Authentication", type: :system do
     fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
     check :registration_user_tos_agreement
     check :registration_user_newsletter
-    check :registration_user_sworn_statement
     check :registration_user_cq_interested
     choose situation
     fill_in :registration_user_address, with: "282 Kevin Brook, Imogeneborough, CA 58517" if use_address
