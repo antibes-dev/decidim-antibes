@@ -36,8 +36,6 @@ en:
             other: Other
             working: I'm working in Antibes
           subtitle: Sign up to participate in discussions and support proposals.
-          sworn_statement_label: Sworn statement label
-          sworn_statement_title: Sworn statement title
           terms: the terms and conditions of use
           tos_agreement: By signing up you agree to %{link}.
           tos_title: Terms of Service

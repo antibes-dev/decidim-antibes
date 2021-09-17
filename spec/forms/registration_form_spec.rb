@@ -19,13 +19,11 @@ module Decidim
     let(:password) { "S4CGQ9AM4ttJdPKS" }
     let(:password_confirmation) { password }
     let(:tos_agreement) { "1" }
-    let(:sworn_statement) { "1" }
     let(:cq_interested) { "1" }
     let(:situation) { "living" }
     let(:address) { "282 Kevin Brook, Imogeneborough, CA 58517" }
     let(:registration_metadata) do
       {
-        sworn_statement: sworn_statement,
         cq_interested: cq_interested,
         situation: situation,
         address: address
@@ -144,13 +142,7 @@ module Decidim
       it { is_expected.to be_invalid }
     end
 
-    context "when sworn_statement is not checked" do
-      let(:sworn_statement) { "0" }
-
-      it { is_expected.to be_invalid }
-    end
-
-    context "when sworn_statement is not checked" do
+    context "when cq_interested is not checked" do
       let(:cq_interested) { "0" }
 
       it { is_expected.to be_invalid }

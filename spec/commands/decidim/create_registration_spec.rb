@@ -18,7 +18,6 @@ module Decidim
       let(:situation) { "living" }
       let(:registration_metadata) do
         {
-          sworn_statement: "1",
           cq_interested: "1",
           situation: situation,
           address: "282 Kevin Brook, Imogeneborough, CA 58517"

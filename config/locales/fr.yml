@@ -41,8 +41,6 @@ fr:
             working: Je travaille à Antibes
           subtitle: Inscrivez-vous pour participer aux discussions et pour exprimer
             votre soutien aux propositions de votre choix.
-          sworn_statement_label: J'atteste sur l'honneur
-          sworn_statement_title: Attestation sur l'honneur
           terms: les termes et conditions d'utilisation
           tos_agreement: En vous inscrivant, vous acceptez %{link}.
           tos_title: Conditions d'utilisation

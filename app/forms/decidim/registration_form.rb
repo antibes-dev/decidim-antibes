@@ -17,7 +17,6 @@ module Decidim
     attribute :tos_agreement, Boolean
     attribute :current_locale, String
     jsonb_attribute :registration_metadata, [
-      [:sworn_statement, Boolean],
       [:cq_interested, Boolean],
       [:situation, String],
       [:address, String]
@@ -30,7 +29,6 @@ module Decidim
     validates :password, password: { name: :name, email: :email, username: :nickname }
     validates :password_confirmation, presence: true
     validates :tos_agreement, allow_nil: false, acceptance: true
-    validates :sworn_statement, allow_nil: false, acceptance: true
     validates :cq_interested, allow_nil: false, acceptance: true
     validates :situation, inclusion: { in: USER_SITUATIONS }
     validates :address, presence: true, if: ->(form) { form.situation == "living" }
