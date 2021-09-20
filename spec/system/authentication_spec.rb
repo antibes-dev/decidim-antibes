@@ -11,23 +11,44 @@ describe "Authentication", type: :system do
     visit decidim.root_path
   end
 
+  def fill_user_fields(user: "user@example.org", robot: false)
+    page.execute_script("$($('.new_user > div > input')[0]).val('Ima robot :D')") if robot
+    fill_in :registration_user_email, with: user
+    fill_in :registration_user_name, with: "Responsible Citizen"
+    fill_in :registration_user_nickname, with: "responsible"
+    fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
+    fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
+    check :registration_user_tos_agreement
+    check :registration_user_newsletter
+    check :registration_user_cq_interested
+    fill_in :registration_user_address, with: "282 Kevin Brook, Imogeneborough, CA 58517"
+  end
+
   describe "Sign Up" do
     context "when using email and password" do
       it "creates a new User" do
         find(".sign-up-link").click
 
         within ".new_user" do
-          fill_in :registration_user_email, with: "user@example.org"
-          fill_in :registration_user_name, with: "Responsible Citizen"
-          fill_in :registration_user_nickname, with: "responsible"
-          fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
-          fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
-          check :registration_user_tos_agreement
-          check :registration_user_newsletter
+          fill_user_fields
           find("*[type=submit]").click
         end
 
         expect(page).to have_content("You have signed up successfully")
+      end
+
+      context "when user fills the form" do
+        it "creates a new User" do
+          find(".sign-up-link").click
+
+          within ".new_user" do
+            fill_user_fields
+            expect(page).to have_content("Address")
+            find("*[type=submit]").click
+          end
+
+          expect(page).to have_content("You have signed up successfully")
+        end
       end
     end
 
@@ -42,13 +63,7 @@ describe "Authentication", type: :system do
         find(".sign-up-link").click
 
         within ".new_user" do
-          fill_in :registration_user_email, with: "user@example.org"
-          fill_in :registration_user_name, with: "Responsible Citizen"
-          fill_in :registration_user_nickname, with: "responsible"
-          fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
-          fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
-          check :registration_user_tos_agreement
-          check :registration_user_newsletter
+          fill_user_fields
           find("*[type=submit]").click
         end
 
@@ -62,14 +77,7 @@ describe "Authentication", type: :system do
         find(".sign-up-link").click
 
         within ".new_user" do
-          page.execute_script("$($('.new_user > div > input')[0]).val('Ima robot :D')")
-          fill_in :registration_user_email, with: "user@example.org"
-          fill_in :registration_user_name, with: "Responsible Citizen"
-          fill_in :registration_user_nickname, with: "responsible"
-          fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
-          fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
-          check :registration_user_tos_agreement
-          check :registration_user_newsletter
+          fill_user_fields(robot: true)
           find("*[type=submit]").click
         end
 
@@ -518,13 +526,7 @@ describe "Authentication", type: :system do
           find(".sign-up-link").click
 
           within ".new_user" do
-            fill_in :registration_user_email, with: user.email
-            fill_in :registration_user_name, with: "Responsible Citizen"
-            fill_in :registration_user_nickname, with: "responsible"
-            fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
-            fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
-            check :registration_user_tos_agreement
-            check :registration_user_newsletter
+            fill_user_fields(user: user.email)
             find("*[type=submit]").click
           end
 

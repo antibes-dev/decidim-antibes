@@ -1,5 +1,4 @@
 {
   "name": "decidim_app",
-  "private": true,
-  "dependencies": {}
+  "private": true
 }
