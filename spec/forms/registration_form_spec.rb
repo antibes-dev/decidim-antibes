@@ -143,7 +143,7 @@ module Decidim
     context "when cq_interested is not checked" do
       let(:cq_interested) { "0" }
 
-      it { is_expected.to be_invalid }
+      it { is_expected.to be_valid }
     end
 
     context "when address is empty" do
