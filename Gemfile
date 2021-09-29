@@ -10,6 +10,8 @@ gem "decidim", "0.23.6"
 
 gem "bootsnap", "~> 1.4"
 
+gem "dotenv-rails"
+
 gem "puma", "~> 4.3.5"
 gem "uglifier", "~> 4.1"
 
