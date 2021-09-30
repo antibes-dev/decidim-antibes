@@ -23,6 +23,9 @@ gem "whenever", require: false
 
 gem "jquery-ui-rails"
 
+gem "sentry-ruby"
+gem "sentry-rails"
+
 gem "omniauth-publik", git: "https://github.com/OpenSourcePolitics/omniauth-publik"
 
 gem "decidim-term_customizer", git: "https://github.com/mainio/decidim-module-term_customizer", branch: "0.23-stable"
