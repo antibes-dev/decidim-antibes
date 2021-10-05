@@ -23,8 +23,8 @@ gem "whenever", require: false
 
 gem "jquery-ui-rails"
 
-gem "sentry-ruby"
 gem "sentry-rails"
+gem "sentry-ruby"
 
 gem "omniauth-publik", git: "https://github.com/OpenSourcePolitics/omniauth-publik"
 
