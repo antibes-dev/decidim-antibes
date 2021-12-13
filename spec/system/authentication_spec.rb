@@ -61,7 +61,8 @@ describe "Authentication", type: :system do
   def fill_user_fields(user: "user@example.org", robot: false)
     page.execute_script("$($('.new_user > div > input')[0]).val('Ima robot :D')") if robot
     fill_in :registration_user_email, with: user
-    fill_in :registration_user_name, with: "Responsible Citizen"
+    fill_in :registration_user_first_name, with: "Responsible"
+    fill_in :registration_user_name, with: "Citizen"
     fill_in :registration_user_nickname, with: "responsible"
     fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
     fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"

@@ -1,5 +1,11 @@
 ---
 en:
+  activemodel:
+    attributes:
+      user:
+        first_name: Your first name
+        name: Your name
+        nickname: Your nickname
   decidim:
     admin:
       actions:

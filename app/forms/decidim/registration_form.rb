@@ -10,6 +10,7 @@ module Decidim
     mimic :user
 
     attribute :name, String
+    attribute :first_name, String
     attribute :nickname, String
     attribute :email, String
     attribute :password, String
@@ -24,6 +25,7 @@ module Decidim
     ]
 
     validates :name, presence: true
+    validates :first_name, presence: true
     validates :nickname, presence: true, format: /\A[\w\-]+\z/, length: { maximum: Decidim::User.nickname_max_length }
     validates :email, presence: true, 'valid_email_2/email': { disposable: true }
     validates :password, confirmation: true

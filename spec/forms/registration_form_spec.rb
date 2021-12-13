@@ -14,6 +14,7 @@ module Decidim
 
     let(:organization) { create(:organization) }
     let(:name) { "User" }
+    let(:first_name) { "A great" }
     let(:nickname) { "justme" }
     let(:email) { "user@example.org" }
     let(:password) { "S4CGQ9AM4ttJdPKS" }
@@ -72,6 +73,7 @@ module Decidim
     let(:attributes) do
       {
         name: name,
+        first_name: first_name,
         nickname: nickname,
         email: email,
         password: password,
@@ -106,6 +108,12 @@ module Decidim
 
     context "when the email is a disposable account" do
       let(:email) { "user@mailbox92.biz" }
+
+      it { is_expected.to be_invalid }
+    end
+
+    context "when the firstname is not present" do
+      let(:first_name) { nil }
 
       it { is_expected.to be_invalid }
     end

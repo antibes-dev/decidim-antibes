@@ -7,7 +7,9 @@ module Decidim
     describe "call" do
       let(:organization) { create(:organization) }
 
-      let(:name) { "Username" }
+      let(:name) { "name" }
+      let(:first_name) { "a great" }
+      let(:complete_name) { "A Great NAME" }
       let(:nickname) { "nickname" }
       let(:email) { "user@example.org" }
       let(:password) { "Y1fERVzL2F" }
@@ -63,6 +65,7 @@ module Decidim
         {
           "user" => {
             "name" => name,
+            "first_name" => first_name,
             "nickname" => nickname,
             "email" => email,
             "password" => password,
@@ -82,6 +85,27 @@ module Decidim
         )
       end
       let(:command) { described_class.new(form) }
+
+      shared_examples "creates the user" do
+        it "creates a new user" do
+          expect(User).to receive(:create!).with(
+            name: complete_name,
+            nickname: form.nickname,
+            email: form.email,
+            password: form.password,
+            password_confirmation: form.password_confirmation,
+            tos_agreement: form.tos_agreement,
+            newsletter_notifications_at: form.newsletter_at,
+            email_on_notification: true,
+            organization: organization,
+            accepted_tos_version: organization.tos_version,
+            locale: form.current_locale,
+            registration_metadata: form.registration_metadata
+          ).and_call_original
+
+          expect { command.call }.to change(User, :count).by(1)
+        end
+      end
 
       before do
         stub_request(:get, "https://api-adresse.data.gouv.fr/search/?q=282%20Kevin%20Brook,%20Imogeneborough,%20CA%2058517")
@@ -136,24 +160,7 @@ module Decidim
           expect { command.call }.to broadcast(:ok)
         end
 
-        it "creates a new user" do
-          expect(User).to receive(:create!).with(
-            name: form.name,
-            nickname: form.nickname,
-            email: form.email,
-            password: form.password,
-            password_confirmation: form.password_confirmation,
-            tos_agreement: form.tos_agreement,
-            newsletter_notifications_at: form.newsletter_at,
-            email_on_notification: true,
-            organization: organization,
-            accepted_tos_version: organization.tos_version,
-            locale: form.current_locale,
-            registration_metadata: form.registration_metadata
-          ).and_call_original
-
-          expect { command.call }.to change(User, :count).by(1)
-        end
+        it_behaves_like "creates the user"
 
         describe "when user keeps the newsletter unchecked" do
           let(:newsletter) { "0" }
@@ -173,6 +180,15 @@ module Decidim
               expect(User.last.registration_metadata["address"]).to eq("282 Kevin Brook, Imogeneborough, CA 58517")
               expect(User.last.registration_metadata["address_id"]).to eq("06004_0710")
             end.to change(User, :count).by(1)
+          end
+        end
+
+        describe "#complete_name" do
+          context "when firstname or name starts have whitespaces" do
+            let(:first_name) { " a great" }
+            let(:name) { "name " }
+
+            it_behaves_like "creates the user"
           end
         end
       end

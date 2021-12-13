@@ -99,6 +99,7 @@ search:
 ## Consider these keys used:
 ignore_unused:
   - devise.address.no_match
+  - activemodel.attributes.user.*
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'

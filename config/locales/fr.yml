@@ -1,5 +1,11 @@
 ---
 fr:
+  activemodel:
+    attributes:
+      user:
+        first_name: Votre prénom
+        name: Votre nom
+        nickname: Votre surnom
   decidim:
     admin:
       actions:
@@ -17,7 +23,7 @@ fr:
     devise:
       registrations:
         new:
-          address_help: 'L''autocomplétion est basée sur la base d''adresse locale de la ville d''Antibes, format accepté: [N°] [Rue] [Code postal] [Ville]'
+          address_help: Commencer à saisir votre adresse [N°] [Rue], une liste d’adresses similaires est proposée. Choisissez votre adresse complète dans cette liste.
           address_label: Votre adresse de résidence
           already_have_an_account?: Vous avez déjà un compte ?
           cq_interested_label: Je souhaite m'inscrire à mon conseil de quartier, pour pouvoir déposer mes propositions d'aménagement, participer à la campagne de priorisation, contribuer aux consultations.
@@ -32,10 +38,10 @@ fr:
           terms: les termes et conditions d'utilisation
           tos_agreement: En vous inscrivant, vous acceptez %{link}.
           tos_title: Conditions d'utilisation
-          username_help: Le nom est public et apparaît dans votre profil et sur vos messages. Dans le but de garantir l'anonymat, vous pouvez choisir n'importe quel nom.
+          username_help: Votre nom et prénom sont visibles sur la plateforme et apparaissent dans votre profil, vos contributions et vos messages.
   devise:
     address:
-      no_match: L'addresse postal renseignée dans le formulaire est valide.
+      no_match: L'addresse postale renseignée dans le formulaire est valide.
     failure:
       invited: Vous avez une invitation en attente, acceptez-la pour terminer la création de votre compte.
     registrations:
