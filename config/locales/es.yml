@@ -37,6 +37,8 @@ es:
           username_help: Public name that appears on your posts. With the aim of guaranteeing
             the anonymity, can be any name.
   devise:
+    address:
+      no_match: Adress and address id doesn't match
     failure:
       invited: You have a pending invitation, accept it to finish creating your account.
     registrations:

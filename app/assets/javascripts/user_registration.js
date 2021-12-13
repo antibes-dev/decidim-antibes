@@ -4,6 +4,7 @@ $(document).ready(() => {
     if (registerForm !== null) {
         const address = $("#registration_user_address");
         let url = new URL("https://api-adresse.data.gouv.fr/search/");
+        const $addressId = $("#registration_user_address_id");
 
         $.extend($.ui.autocomplete.prototype, {
                 _resizeMenu: () => {
@@ -14,7 +15,7 @@ $(document).ready(() => {
 
         const filter_api_result = (result) => {
             return result.features.map((i) => {
-                return i.properties.label
+                return {value: i.properties.label, id: i.properties.id}
             })
         };
 
@@ -44,6 +45,10 @@ $(document).ready(() => {
 
         address.on("focus", () => {
             $(".new-user-autocomplete").show();
+        });
+
+        address.on("autocompleteselect", function (event, ui) {
+            $addressId.val(ui.item.id);
         });
     }
 });

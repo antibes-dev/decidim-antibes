@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "uri"
+require "net/http"
+
 module Decidim
   # A form object used to handle user registrations
   class RegistrationForm < Form
@@ -16,7 +19,8 @@ module Decidim
     attribute :current_locale, String
     jsonb_attribute :registration_metadata, [
       [:cq_interested, Boolean],
-      [:address, String]
+      [:address, String],
+      [:address_id, String]
     ]
 
     validates :name, presence: true
@@ -27,10 +31,12 @@ module Decidim
     validates :password_confirmation, presence: true
     validates :tos_agreement, allow_nil: false, acceptance: true
     validates :address, presence: true
+    validates :address_id, presence: true
 
     validate :email_unique_in_organization
     validate :nickname_unique_in_organization
     validate :no_pending_invitations_exist
+    validate :address_exists?
 
     def newsletter_at
       return nil unless newsletter?
@@ -50,6 +56,27 @@ module Decidim
 
     def no_pending_invitations_exist
       errors.add :base, I18n.t("devise.failure.invited") if User.has_pending_invitations?(current_organization.id, email)
+    end
+
+    def address_exists?
+      return if address.blank?
+      return if address_id.blank?
+      return if list_address_ids.include?(address_id)
+
+      errors.add :address, I18n.t("devise.address.no_match")
+    end
+
+    def list_address_ids
+      JSON.parse(query_api).fetch("features").map { |feature| feature.dig("properties", "id") }
+    end
+
+    def query_api
+      url = URI("https://api-adresse.data.gouv.fr/search/?q=#{address}")
+      https = Net::HTTP.new(url.host, url.port)
+      https.use_ssl = true
+      request = Net::HTTP::Get.new(url)
+      response = https.request(request)
+      response.read_body
     end
   end
 end
