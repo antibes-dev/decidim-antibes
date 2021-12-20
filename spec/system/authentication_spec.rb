@@ -4,9 +4,56 @@ require "spec_helper"
 
 describe "Authentication", type: :system do
   let(:organization) { create(:organization) }
+  let(:body) do
+    JSON.dump(
+      "type": "FeatureCollection",
+      "version": "draft",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              3.824727,
+              43.577467
+            ]
+          },
+          "properties": {
+            "label": "282 Kevin Brook, Imogeneborough, CA 58517",
+            "score": 0.3143790909090909,
+            "id": "06004_0710",
+            "name": "Rue",
+            "postcode": "34430",
+            "citycode": "34270",
+            "x": 766_637.42,
+            "y": 6_275_726.47,
+            "city": "Saint-Jean-de-Védas",
+            "context": "34, Hérault, Occitanie",
+            "type": "street",
+            "importance": 0.45817
+          }
+        }
+      ],
+      "attribution": "BAN",
+      "licence": "ETALAB-2.0",
+      "query": "rue des ",
+      "limit": 5
+    )
+  end
   let(:last_user) { Decidim::User.last }
 
   before do
+    stub_request(:get, "https://api-adresse.data.gouv.fr/search/?q=282%20Kevin%20Brook,%20Imogeneborough,%20CA%2058517")
+      .with(
+        headers: {
+          "Accept" => "*/*",
+          "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+          "Host" => "api-adresse.data.gouv.fr",
+          "User-Agent" => "Ruby"
+        }
+      )
+      .to_return(status: 200, body: body, headers: {})
+
     switch_to_host(organization.host)
     visit decidim.root_path
   end
@@ -14,7 +61,8 @@ describe "Authentication", type: :system do
   def fill_user_fields(user: "user@example.org", robot: false)
     page.execute_script("$($('.new_user > div > input')[0]).val('Ima robot :D')") if robot
     fill_in :registration_user_email, with: user
-    fill_in :registration_user_name, with: "Responsible Citizen"
+    fill_in :registration_user_first_name, with: "Responsible"
+    fill_in :registration_user_name, with: "Citizen"
     fill_in :registration_user_nickname, with: "responsible"
     fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
     fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
@@ -22,6 +70,7 @@ describe "Authentication", type: :system do
     check :registration_user_newsletter
     check :registration_user_cq_interested
     fill_in :registration_user_address, with: "282 Kevin Brook, Imogeneborough, CA 58517"
+    page.execute_script("$($('#registration_user_address_id')).val('06004_0710')")
   end
 
   describe "Sign Up" do

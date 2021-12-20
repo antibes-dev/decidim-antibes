@@ -2,23 +2,41 @@ $(document).ready(() => {
     const registerForm = $("#register-form");
 
     if (registerForm !== null) {
-        const address = $("#registration_user_address");
         let url = new URL("https://api-adresse.data.gouv.fr/search/");
+        const $address = $("#registration_user_address");
+        const $addressId = $("#registration_user_address_id");
+
+        const set_valid_address = () => {
+            clear_address_state();
+
+            $address.addClass("is-bal-valid");
+        };
+
+        const set_invalid_address = () => {
+            clear_address_state();
+
+            $address.addClass("is-bal-invalid");
+        };
+
+        const clear_address_state = () => {
+            $address.removeClass("is-bal-valid");
+            $address.removeClass("is-bal-invalid");
+        };
 
         $.extend($.ui.autocomplete.prototype, {
                 _resizeMenu: () => {
-                    $(".new-user-autocomplete").width(address.outerWidth());
+                    $(".new-user-autocomplete").width($address.outerWidth());
                 }
             }
         );
 
         const filter_api_result = (result) => {
             return result.features.map((i) => {
-                return i.properties.label
+                return {value: i.properties.label, id: i.properties.id}
             })
         };
 
-        address.autocomplete({
+        $address.autocomplete({
             source: (request, response) => {
                 url.searchParams.delete("q");
                 url.searchParams.delete("limit");
@@ -42,8 +60,26 @@ $(document).ready(() => {
             }
         });
 
-        address.on("focus", () => {
+        $address.on("focus", () => {
             $(".new-user-autocomplete").show();
+        });
+
+        $address.on("autocompleteselect", function (event, ui) {
+            $addressId.val(ui.item.id);
+            set_valid_address();
+        });
+
+        $address.on("input", () => {
+            $addressId.val("");
+            clear_address_state();
+        });
+
+        $address.on("focusout", () => {
+            if ($addressId.val() === "") {
+                set_invalid_address();
+            } else {
+                set_valid_address();
+            }
         });
     }
 });

@@ -63,6 +63,17 @@
     font-weight: 600;
   }
 }
+
 .ui-helper-hidden-accessible {
-  display:none;
+  display: none;
+}
+
+.is-bal-valid {
+  border-color: $success !important;
+  background-color: mix($success, $white, 10%) !important;
+}
+
+.is-bal-invalid {
+  border-color: $input-error-color;
+  @include form-input-error($input-error-color, 10%);
 }

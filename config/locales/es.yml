@@ -25,20 +25,33 @@ es:
           newsletter: Receive an occasional newsletter with relevant information
           newsletter_title: Contact permission
           nickname_help: Your alias in %{organization}
-          password_help: "%{minimun_characters} characters minimum, must not be too
-            common (e.g. 123456) and must be different from your nickname and your
-            email."
+          password_help: "%{minimun_characters} characters minimum, must not be too common (e.g. 123456) and must be different from your nickname and your email."
           sign_in: Log in
           sign_up: Sign up
           subtitle: Sign up to participate in discussions and support proposals.
           terms: the terms and conditions of use
           tos_agreement: By signing up you agree to %{link}.
           tos_title: Terms of Service
-          username_help: Public name that appears on your posts. With the aim of guaranteeing
-            the anonymity, can be any name.
+          username_help: Public name that appears on your posts. With the aim of guaranteeing the anonymity, can be any name.
   devise:
+    address:
+      no_match: Adress and address id doesn't match
     failure:
       invited: You have a pending invitation, accept it to finish creating your account.
     registrations:
       new:
         sign_up: Sign up
+  faker:
+    address:
+      country_code:
+      - ES
+      - ES0
+      - ES1
+      - ES2
+      - ES3
+      - ES4
+      - ES5
+      - ES6
+      - ES7
+      - ES8
+      - ES9

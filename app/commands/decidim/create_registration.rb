@@ -37,7 +37,7 @@ module Decidim
     def create_user
       @user = User.create!(
         email: form.email,
-        name: form.name,
+        name: complete_name,
         nickname: form.nickname,
         password: form.password,
         password_confirmation: form.password_confirmation,
@@ -55,6 +55,10 @@ module Decidim
       hash = form.registration_metadata.dup
       hash.merge!(address: form.address)
       hash
+    end
+
+    def complete_name
+      [form.first_name.titleize, form.name.upcase].map(&:strip).join(" ")
     end
   end
 end
