@@ -73,7 +73,7 @@ module Decidim
     end
 
     def query_api
-      url = URI("https://api-adresse.data.gouv.fr/search/?q=#{address}")
+      url = URI("https://api-adresse.data.gouv.fr/search/?q=" + CGI.escape(address))
       https = Net::HTTP.new(url.host, url.port)
       https.use_ssl = true
       request = Net::HTTP::Get.new(url)
