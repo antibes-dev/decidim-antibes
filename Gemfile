@@ -53,14 +53,7 @@ group :development do
 end
 
 group :production do
-  gem "dalli"
-  gem "lograge"
-  gem "newrelic_rpm"
+  gem "daemons"
+  gem "delayed_job_active_record"
   gem "passenger"
-  gem "sendgrid-ruby"
-  gem "sentry-rails"
-  gem "sentry-ruby"
-  gem "sentry-sidekiq"
-  gem "sidekiq"
-  gem "sidekiq-scheduler"
 end
