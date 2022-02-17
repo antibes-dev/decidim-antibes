@@ -55,5 +55,13 @@ end
 group :production do
   gem "daemons"
   gem "delayed_job_active_record"
+  gem "lograge"
+  gem "newrelic_rpm"
   gem "passenger"
+  gem "sendgrid-ruby"
+  gem "sentry-rails"
+  gem "sentry-ruby"
+  gem "sentry-sidekiq"
+  gem "sidekiq"
+  gem "sidekiq-scheduler"
 end
