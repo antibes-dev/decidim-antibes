@@ -7,19 +7,6 @@ fr:
         name: Votre nom
         nickname: Votre surnom
   decidim:
-    admin:
-      actions:
-        add: Ajouter
-        confirm_destroy: Êtes-vous certain ?
-        destroy: Détruire
-        edit: Modifier
-      models:
-        scope_type:
-          fields:
-            name: Titre
-            plural: Pluriel
-      titles:
-        scope_types: Types de secteur
     devise:
       registrations:
         new:
@@ -39,6 +26,20 @@ fr:
           tos_agreement: En vous inscrivant, vous acceptez %{link}.
           tos_title: Conditions d'utilisation
           username_help: Votre nom et prénom sont visibles sur la plateforme et apparaissent dans votre profil, vos contributions et vos messages.
+    meetings:
+      directory:
+        meetings:
+          index:
+            all: All
+      meeting:
+        not_allowed: Not allowed
+      meetings:
+        create:
+          invalid: Invalid
+          success: Success
+        update:
+          invalid: Invalid
+          success: Success
   devise:
     address:
       no_match: L'addresse postale renseignée dans le formulaire est valide.
