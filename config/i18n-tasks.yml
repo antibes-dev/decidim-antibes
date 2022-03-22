@@ -101,6 +101,7 @@ ignore_unused:
   - devise.address.no_match
   - activemodel.attributes.user.*
   - faker.address.country_code
+  - errors.messages.extension_whitelist_error
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
