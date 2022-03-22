@@ -48,6 +48,9 @@ en:
     registrations:
       new:
         sign_up: Sign up
+  errors:
+    messages:
+      extension_whitelist_error: File must be filled
   faker:
     address:
       country_code:
