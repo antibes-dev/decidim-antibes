@@ -15,10 +15,12 @@ namespace :decidim do
 
       old_registration_metadata = user.registration_metadata.dup || {}
 
-      user.update!(registration_metadata: old_registration_metadata.merge(
-        address: address,
-        address_id: bal
-      ))
+      # rubocop:disable Rails/SkipsModelValidations
+      user.update_column(:registration_metadata, old_registration_metadata.merge(
+                                                   address: address,
+                                                   address_id: bal
+                                                 ))
+      # rubocop:enable Rails/SkipsModelValidations
 
       puts("Updated user #{user.email} with address #{address}, previous address: #{old_registration_metadata["address"]}")
     end
