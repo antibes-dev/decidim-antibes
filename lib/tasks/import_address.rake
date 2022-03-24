@@ -15,7 +15,7 @@ namespace :decidim do
 
       old_registration_metadata = user.registration_metadata.dup || {}
 
-      user.update!(registration_metadata: old_registration_metadata.merge(
+      user.update_column(:registration_metadata, old_registration_metadata.merge(
         address: address,
         address_id: bal
       ))
