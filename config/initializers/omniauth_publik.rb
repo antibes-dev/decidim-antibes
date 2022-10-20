@@ -1,9 +1,20 @@
 # frozen_string_literal: true
 
-Devise.setup do |config|
-  config.omniauth :publik,
-                  client_id: ENV["PUBLIK_CLIENT_ID"],
-                  client_secret: ENV["PUBLIK_CLIENT_SECRET"],
-                  site: ENV["PUBLIK_SITE_URL"],
-                  scope: "openid email profile"
+return unless defined?(OmniAuth::Strategies::Publik)
+
+if Rails.application.secrets.dig(:omniauth, :publik).present?
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    provider(
+      :publik,
+      setup: lambda { |env|
+        request = Rack::Request.new(env)
+        organization = Decidim::Organization.find_by(host: request.host)
+        provider_config = organization.enabled_omniauth_providers[:publik]
+        env["omniauth.strategy"].options[:client_id] = provider_config[:client_id]
+        env["omniauth.strategy"].options[:client_secret] = provider_config[:client_secret]
+        env["omniauth.strategy"].options[:site] = provider_config[:site_url]
+      },
+      scope: :public
+    )
+  end
 end
