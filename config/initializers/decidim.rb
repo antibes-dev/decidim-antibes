@@ -3,7 +3,7 @@
 Decidim.configure do |config|
   config.expire_session_after = ENV.fetch("DECIDIM_SESSION_TIMEOUT", 90).to_i.minutes
   config.skip_first_login_authorization = ENV["SKIP_FIRST_LOGIN_AUTHORIZATION"] ? ActiveRecord::Type::Boolean.new.cast(ENV["SKIP_FIRST_LOGIN_AUTHORIZATION"]) : true
-  config.application_name = "Antibes DecidimTest"
+  config.application_name = "Antibes Decidim"
   config.mailer_sender = "noreply@ville-antibes.fr"
 
   # Change these lines to set your preferred locales
