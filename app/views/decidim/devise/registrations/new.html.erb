@@ -19,7 +19,9 @@
       </div>
     </div>
 
-    <%= render "decidim/devise/shared/omniauth_buttons" %>
+    <% cache current_organization do %>
+      <%= render "decidim/devise/shared/omniauth_buttons" %>
+    <% end %>
 
     <div class="row">
       <div class="columns large-6 medium-10 medium-centered">
@@ -50,7 +52,7 @@
               </div>
 
               <div class="field">
-                <%= f.password_field :password, help_text: t(".password_help", minimun_characters: NOBSPW.configuration.min_password_length), autocomplete: "off" %>
+                <%= f.password_field :password, help_text: t(".password_help", minimun_characters: ::PasswordValidator::MINIMUM_LENGTH), autocomplete: "off" %>
               </div>
 
               <div class="field">

@@ -24,10 +24,10 @@ module Decidim
       [:address_id, String]
     ]
 
-    validates :name, presence: true
+    validates :name, presence: true, format: { with: Decidim::User::REGEXP_NAME }
     validates :first_name, presence: true
-    validates :nickname, presence: true, format: /\A[\w\-]+\z/, length: { maximum: Decidim::User.nickname_max_length }
-    validates :email, presence: true, 'valid_email_2/email': { disposable: true }
+    validates :nickname, presence: true, format: { with: Decidim::User::REGEXP_NICKNAME }, length: { maximum: Decidim::User.nickname_max_length }
+    validates :email, presence: true, "valid_email_2/email": { disposable: true }
     validates :password, confirmation: true
     validates :password, password: { name: :name, email: :email, username: :nickname }
     validates :password_confirmation, presence: true
@@ -49,11 +49,17 @@ module Decidim
     private
 
     def email_unique_in_organization
-      errors.add :email, :taken if User.no_active_invitation.find_by(email: email, organization: current_organization).present?
+      errors.add :email, :taken if valid_users.find_by(email: email, organization: current_organization).present?
     end
 
     def nickname_unique_in_organization
-      errors.add :nickname, :taken if User.no_active_invitation.find_by(nickname: nickname, organization: current_organization).present?
+      return false unless nickname
+
+      errors.add :nickname, :taken if valid_users.find_by("LOWER(nickname)= ? AND decidim_organization_id = ?", nickname.downcase, current_organization.id).present?
+    end
+
+    def valid_users
+      UserBaseEntity.where(invitation_token: nil)
     end
 
     def no_pending_invitations_exist
