@@ -1,25 +1,52 @@
-name: Tests
-on:
-  push:
-    branches:
-      - develop
-      - master
-      - release/*
-      - "*-stable"
-  pull_request:
-    branches-ignore:
-      - "chore/l10n*"
+name: "CI/CD"
+on: [push]
 
 env:
   CI: "true"
   SIMPLECOV: "true"
-  RUBY_VERSION: 2.7.1
+  RUBY_VERSION: 2.7.5
+  RAILS_ENV: test
+  NODE_VERSION: 16.9.1
+  RUBYOPT: '-W:no-deprecated'
 
 jobs:
+  lint:
+    name: Lint code
+    runs-on: ubuntu-latest
+    if: "!startsWith(github.head_ref, 'chore/l10n')"
+    timeout-minutes: 60
+    steps:
+      - uses: rokroskar/workflow-run-cleanup-action@v0.3.0
+        if: "github.ref != 'refs/heads/develop'"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - uses: actions/checkout@v2.0.0
+        with:
+          fetch-depth: 1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Get npm cache directory path
+        id: npm-cache-dir-path
+        run: echo "::set-output name=dir::$(npm get cache)-lint"
+      - uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: ${{ steps.npm-cache-dir-path.outputs.dir }}
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-
+      - name: Install JS dependencies
+        run: npm ci
+      - run: bundle exec rubocop -P
+        name: Lint Ruby files
   tests:
     name: Tests
     runs-on: ubuntu-latest
-    if: "!startsWith(github.head_ref, 'chore/l10n')"
     services:
       postgres:
         image: postgres:11
@@ -50,19 +77,36 @@ jobs:
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Get Yarn cache directory
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Use Yarn cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
+        run: yarn install --prefer-offline --frozen-lockfile
       - name: Create db
         run: |
           bundle exec rails db:create
           bundle exec rails db:migrate
+      - name: Precompile assets
+        run: |
+          bundle exec rake assets:precompile
       - run: mkdir -p ./spec/tmp/screenshots
         name: Create the screenshots folder
       - uses: nanasess/setup-chromedriver@v1.0.1
       - run: bundle exec rspec
         name: RSpec
-      - run: ./.github/upload_coverage.sh $DECIDIM_MODULE $GITHUB_EVENT_PATH
+      - run: ./.github/upload_coverage.sh decidim-app $GITHUB_EVENT_PATH
         name: Upload coverage
       - uses: actions/upload-artifact@v2-preview
         if: always()
         with:
           name: screenshots
-          path: ./spec/decidim_dummy_app/tmp/screenshots
+          path: ./spec/tmp/screenshots

@@ -5,8 +5,6 @@
 class MoveOrganizationFieldsToHeroContentBlock < ActiveRecord::Migration[5.2]
   class ::Decidim::Organization < ApplicationRecord
     self.table_name = :decidim_organizations
-
-    mount_uploader :homepage_image, ::Decidim::HomepageImageUploader
   end
 
   def change

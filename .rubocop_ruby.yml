@@ -432,6 +432,10 @@ Layout/EmptyLinesAroundModuleBody:
     - empty_lines
     - no_empty_lines
 
+Layout/EmptyLineAfterMagicComment:
+  Exclude:
+    - "db/migrate/*"
+
 # Checks whether the source file has a utf-8 encoding comment or not
 # AutoCorrectEncodingComment must match the regex
 # /#.*coding\s?[:=]\s?(?:UTF|utf)-8/
